@@ -1,0 +1,2065 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{09\_Simulation-Copy1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \subsubsection{Rescheduled Class}\label{rescheduled-class}
+
+You should all have received an email concerning the 2 rescheduled
+class. Rescheduled classes will be held on: - 06/26 (June 26, Tuesday ),
+period 1, room CALL 23 - 06/29 (June 29, Friday ), period 5, room CALL
+23
+
+You may attend either class.
+
+These classes are for you to ask questions and get help with your
+assignment.
+
+There will be \emph{no new taught material} in these classes.
+
+    \subsection{Please download the new class
+notes.}\label{please-download-the-new-class-notes.}
+
+\subsubsection{Step 1 : Navigate to the directory where your files are
+stored.}\label{step-1-navigate-to-the-directory-where-your-files-are-stored.}
+
+Open a terminal. Using \texttt{cd}, navigate to \emph{inside} the
+ILAS\_Python\_for\_engineers folder on your computer. \#\#\# Step 3 :
+Update the course notes by downloading the changes In the terminal type:
+
+\begin{quote}
+\texttt{git\ add\ -A\ git\ commit\ -m\ "commit"\ git\ fetch\ upstream\ git\ merge\ -X\ theirs\ upstream/master}
+\end{quote}
+
+    \section{Introduction to Simulation}\label{introduction-to-simulation}
+
+ Recap: Solving Ordinary Differential Equations (ODE) Discontinuous
+Functions    Example : A Mixing Tank Solving an ODE for a Specific
+\emph{Solution} Value    Example : Reactor, Part 1 Solution to an ODE
+evaluated at Specific \emph{Input} Values    Example : Reactor, Part 2
+Matrix Multiplication Rules Useful Matrix Operations Systems of
+Differential Equations Interactive Plots    Installing FFmpeg Animated
+Plots    Example: Animating a Line    Example : Simulating Physical
+Systems, Spring-Mass System    Example : Simulating Physical Systems,
+Trajectory : Plotting the Object    Example : Simulating Physical
+Systems, Trajectory : Plotting the Path    Example : Simulating Physical
+Systems, Trajectory : Plotting the Path and Object Summary
+
+    \subsubsection{Lesson Goal}\label{lesson-goal}
+
+Produce simulations of systems to observe: - time-varying -
+parameter-varying
+
+effects.
+
+\subsubsection{Fundamental programming
+concepts}\label{fundamental-programming-concepts}
+
+Employing computational image generation to represet real-life problems.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Grpahical representation
+\item
+  Animated representation
+\end{enumerate}
+
+    \subsection{Recap: Solving Ordinary Differential Equations
+(ODE)}\label{recap-solving-ordinary-differential-equations-ode}
+
+ In the previous seminar we studied the function
+\texttt{scipy.integrate.odeint}.
+
+The function gives a numerical solution to a first order differential
+equation for a given input parameter e.g. time.
+
+Estimation methods can provide an easier way to solve problems than
+finding an analytical soltion to the equation.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{integrate} \PY{k}{import} \PY{n}{odeint}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\end{Verbatim}
+
+
+    \textbf{Analytical solution (to an ODE) :} A function, which can be
+solved to get a particular value.
+
+e.g. solution to an ODE : \(y(x) = exp(x)\) We can \emph{solve} the
+solution to find the value of \(x\) where \(y(x) = 2\).
+
+Few practical systems lead to analytical solutions. Their use is limited
+use.
+
+\textbf{Numerical approximation (of an ODE) :} Independent variable and
+approximation of corresponding function value at that variable.
+
+    To recap last weeks class...
+
+    The function \texttt{odeint} takes a user-defined function as an
+argument.
+
+This input function should define the derivative you want to solve in
+the form:
+
+\(f' = \frac{df}{dt} = g(t)\)
+
+For example:
+
+\(f' = cos(t), \quad f(t=0)=0\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{def} \PY{n+nf}{dfdt}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{t}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{t}\PY{p}{)}
+\end{Verbatim}
+
+
+    Two additional arguments are needed:
+
+\begin{itemize}
+\tightlist
+\item
+  the initial value of x
+\item
+  the value(s) of t at which to evaluate x, starting with the initial
+  value
+\item
+  (if \texttt{dx\_dt} takes any other argumemts they are entered as a
+  tuple as the third argument)
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{ts} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)} \PY{c+c1}{\PYZsh{} the value(s) of t at which to evaluate x}
+        \PY{n}{f0} \PY{o}{=} \PY{l+m+mi}{0}                    \PY{c+c1}{\PYZsh{} the initial value}
+        
+        \PY{c+c1}{\PYZsh{} odeint returns x at each value of t}
+        \PY{n}{fs} \PY{o}{=} \PY{n}{odeint}\PY{p}{(}\PY{n}{dfdt}\PY{p}{,} \PY{c+c1}{\PYZsh{} function}
+                    \PY{n}{f0}\PY{p}{,}   \PY{c+c1}{\PYZsh{} initial value}
+                    \PY{n}{ts}\PY{p}{)}   \PY{c+c1}{\PYZsh{} time span}
+\end{Verbatim}
+
+
+    The function \texttt{odeint} returns an \(n\times 1\) array (2D column).
+
+To plot the output we have to "flatten" it to a 1D array.
+
+Recall, \(f' = cos(t), \quad f = sin(t)\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{fs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{fs}\PY{p}{)}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    Plot the function
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{f}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ts}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{ts}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{analytical solution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ts}\PY{p}{,} \PY{n}{fs}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{numerical solution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} <matplotlib.legend.Legend at 0x114b6ce48>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The numerical and analytical solutions agree.
+
+    \subsection{Discontinuous Functions}\label{discontinuous-functions}
+
+ The computational solver to loops through the range of input vlaues.
+
+It estimates the value of the function at each input value.
+
+This makes it easy to apply the solver to piecewise or discontinous
+functions.
+
+    An example of where this is useful is where a \emph{forcing function}
+effects your solution.
+
+    \subparagraph{Example : A Mixing Tank}\label{example-a-mixing-tank}
+
+A tank initially contains a mixture: - 300 g of salt - 1000 L of water.
+
+From t=0 min: - inlet solution 4 g/L (salt/water) - inlet flow rate 6
+L/min.
+
+From t=10 min: - inlet solution 2 g/L (salt/water) - inlet flow rate 6
+L/min (unchanged)
+
+Oulet flow rate = inlet floow rate = 6 L/min (unchanged).
+
+The contents are mixed thoroughly.
+
+    A differential equation to represent the change in the mass of salt in
+the tank with respect to time:
+
+\begin{align*}
+\frac{dM_S}{dt} &= u_{in}C_{in}(t) - u_{out}C_{out}(t)\\
+                &= u_{in}C_{in}(t)-u_{out}\frac{M_S}{V} \\
+\end{align*}
+
+where \(u\) = inlet flow rate \(V\) = volume of liquid in tank
+\(C_{in}\) = salt concentration inflow g/L \(M_S\) = mass of salt in
+tank
+
+Initial condition: \(M_S(t=0) = 300\)
+
+    We can first write a function to represent the change of \(C_{in}\) with
+time:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{def} \PY{n+nf}{Cs}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inlet concentration of salt}\PY{l+s+s1}{\PYZsq{}}
+            \PY{k}{if} \PY{n}{t} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                \PY{n}{cs} \PY{o}{=} \PY{l+m+mf}{0.0} \PY{c+c1}{\PYZsh{} g/L}
+            \PY{k}{elif} \PY{p}{(}\PY{n}{t} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{)} \PY{o+ow}{and} \PY{p}{(}\PY{n}{t} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+                \PY{n}{cs} \PY{o}{=} \PY{l+m+mf}{4.0} 
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{cs} \PY{o}{=} \PY{l+m+mf}{2.0}
+            \PY{k}{return} \PY{n}{cs}
+\end{Verbatim}
+
+
+    Then we write a function to define \(\frac{dM_S}{dt}\) just as we did in
+the last example.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{V} \PY{o}{=} \PY{l+m+mf}{1000.0} \PY{c+c1}{\PYZsh{} volume of liquid in tank}
+        \PY{n}{u} \PY{o}{=} \PY{l+m+mf}{6.0}    \PY{c+c1}{\PYZsh{} inflow and outflow rate}
+        
+        \PY{k}{def} \PY{n+nf}{salt\PYZus{}mass}\PY{p}{(}\PY{n}{Ms}\PY{p}{,} \PY{n}{t}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mass of salt in the tank}\PY{l+s+s1}{\PYZsq{}}
+            \PY{n}{dMsdt} \PY{o}{=} \PY{n}{u} \PY{o}{*} \PY{n}{Cs}\PY{p}{(}\PY{n}{t}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{u} \PY{o}{*} \PY{n}{Ms} \PY{o}{/} \PY{n}{V}
+            \PY{k}{return} \PY{n}{dMsdt}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} initial value (at t=0)}
+        \PY{n}{M0} \PY{o}{=} \PY{l+m+mi}{300} \PY{c+c1}{\PYZsh{} g salt}
+        
+        \PY{c+c1}{\PYZsh{} time span }
+        \PY{n}{tspan} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{15.0}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} mass of salt in tank over time span}
+        \PY{n}{Ms} \PY{o}{=} \PY{n}{odeint}\PY{p}{(}\PY{n}{salt\PYZus{}mass}\PY{p}{,} \PY{n}{M0}\PY{p}{,} \PY{n}{tspan}\PY{p}{)}
+\end{Verbatim}
+
+
+    Plot the solution to observe the change in the rate of increase in salt
+concentration at \(t=10\)s.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{tspan}\PY{p}{,} \PY{n}{Ms}\PY{o}{/}\PY{n}{V}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time (min)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Salt concentration (g/L)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} Text(0,0.5,'Salt concentration (g/L)')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{\texorpdfstring{Solving an ODE for a Specific
+\emph{Solution}
+Value.}{Solving an ODE for a Specific Solution Value.}}\label{solving-an-ode-for-a-specific-solution-value.}
+
+ The analytical solution to an ODE is a function the value of input
+variable \(x\) that makes \(y(x)\) equal to some value of interest.
+
+    In a numerical solution to an ODE we get a vector of independent
+variable values, and the corresponding function values at those values.
+
+This may not include the function value of itnerest.
+
+To solve for a particular function value we need a dfferent approach.
+
+    One approach to this is using interpolation, which we studied in
+\texttt{05\_Plotting\_Analysing.ipynb}...
+
+    \subsubsection{Example : Reactor, Part 1}\label{example-reactor-part-1}
+
+ The rate of change of the concentration \(C_A\) of a substance within a
+reactor is:
+
+\[\frac{dC_A}{dt}=-kC_A^2 \]
+
+where \(k = 0.23 \quad \textrm{L/mol/s}\)
+
+Initial condition: \(C_A(t=0) = 2.3 \quad \textrm{mol/L}\)
+
+Compute the time it takes for \(C_A\) to be reduced to
+\(1 \textrm{mol/L}\).
+
+\emph{i.e. Find input variable \(t\) when output variable \(C_A = 1\)}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{k} \PY{o}{=} \PY{l+m+mf}{0.23}
+         \PY{n}{Ca0} \PY{o}{=} \PY{l+m+mf}{2.3}  \PY{c+c1}{\PYZsh{} initial condition}
+         
+         \PY{k}{def} \PY{n+nf}{dCadt}\PY{p}{(}\PY{n}{Ca}\PY{p}{,} \PY{n}{t}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{o}{\PYZhy{}}\PY{n}{k} \PY{o}{*} \PY{n}{Ca}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+         
+         \PY{n}{tspan} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{14}\PY{p}{)}  \PY{c+c1}{\PYZsh{} range of time values}
+         \PY{n}{sol} \PY{o}{=} \PY{n}{odeint}\PY{p}{(}\PY{n}{dCadt}\PY{p}{,} \PY{n}{Ca0}\PY{p}{,} \PY{n}{tspan}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{tspan}\PY{p}{,} \PY{n}{sol}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time (s)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}C\PYZus{}A\PYZdl{} (mol/L)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} Text(0,0.5,'\$C\_A\$ (mol/L)')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We can see that the solution (\(C_A = 1\)) is close to 2s.
+
+    We create an interpolating function to estimate the solution.
+
+First, observe how the solution is represented.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{sol}\PY{p}{,} \PY{n+nb}{type}\PY{p}{(}\PY{n}{sol}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[2.3       ]
+ [1.63477314]
+ [1.26802375]
+ [1.03567716]
+ [0.87529271]
+ [0.75792139]
+ [0.66830573]
+ [0.59764138]
+ [0.54049165]
+ [0.4933179 ]
+ [0.45371772]
+ [0.42000278]
+ [0.39095185]
+ [0.36565974]] <class 'numpy.ndarray'>
+
+    \end{Verbatim}
+
+    We can plot this range without issue.
+
+However, when interpolating, we must specify the index of the range of
+values:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{Ca} \PY{o}{=} \PY{n}{sol}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} interpolate : Method 1}
+         \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{interpolate} \PY{k}{import} \PY{n}{interp1d}
+         
+         \PY{n}{ca\PYZus{}func} \PY{o}{=} \PY{n}{interp1d}\PY{p}{(}\PY{n}{tspan}\PY{p}{,} \PY{n}{Ca}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cubic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         
+         \PY{c+c1}{\PYZsh{} \PYZsh{} interpolate : Method 2}
+         \PY{c+c1}{\PYZsh{} from scipy.interpolate import splrep}
+         \PY{c+c1}{\PYZsh{} from scipy.interpolate import splev}
+         
+         \PY{c+c1}{\PYZsh{} order\PYZus{}poly = 3}
+         \PY{c+c1}{\PYZsh{} ca\PYZus{}func = splrep(tspan, Ca, k=order\PYZus{}poly)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}241}]:} \PY{c+c1}{\PYZsh{} plot the original data }
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{tspan}\PY{p}{,} \PY{n}{Ca}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{original data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} plot the interpolated data}
+          \PY{n}{tspan\PYZus{}i} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{)}   \PY{c+c1}{\PYZsh{} create a finer range of time variables}
+          
+          \PY{c+c1}{\PYZsh{} Method 1}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{tspan\PYZus{}i}\PY{p}{,} \PY{n}{ca\PYZus{}func}\PY{p}{(}\PY{n}{tspan\PYZus{}i}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{interpolation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} Method 1}
+          
+          \PY{c+c1}{\PYZsh{} Method 2}
+          \PY{c+c1}{\PYZsh{}plt.plot(tspan\PYZus{}i, splev(tspan\PYZus{}i, ca\PYZus{}func), \PYZsq{}r\PYZhy{}\PYZhy{}\PYZsq{}, label=\PYZsq{}interpolation\PYZsq{}) \PYZsh{} Method 2}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time (s)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}C\PYZus{}A\PYZdl{} (mol/L)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}241}]:} <matplotlib.legend.Legend at 0x181ed230b8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_40_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The interpolated data provides a good fit.
+
+Now we solve the problem : find time, \(t\) when \(C_A = 1\)
+
+Remember, our approximation : \(t \approx 2\) when \(C_A = 1\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{tguess} \PY{o}{=} \PY{l+m+mf}{2.0}
+         
+         \PY{k}{def} \PY{n+nf}{func}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{returns 0 when interpolated function ca\PYZus{}func(t) = desired value, 1}\PY{l+s+s1}{\PYZsq{}}
+             \PY{k}{return} \PY{l+m+mf}{1.0} \PY{o}{\PYZhy{}} \PY{n}{ca\PYZus{}func}\PY{p}{(}\PY{n}{t}\PY{p}{)}
+\end{Verbatim}
+
+
+    In \texttt{07\_RootFinding\_CoupledEquations.ipynb} we learnt to use the
+function \texttt{fsolve} for estimating the roots of a function given an
+initial estimate.
+
+Then we use \texttt{fsolve} to solve the function (find where function
+returns 0), usign initial guess = 2.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}243}]:} \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{optimize} \PY{k}{import} \PY{n}{fsolve}
+          
+          \PY{n}{tsol2} \PY{o}{=} \PY{n}{fsolve}\PY{p}{(}\PY{n}{func}\PY{p}{,} \PY{n}{tguess}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} tsol2, = fsolve(func, tguess)  \PYZsh{} using a comma extracts a single varibale stored as array}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{tsol2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[2.45688986]
+
+    \end{Verbatim}
+
+    We can express this more concisely as a \texttt{lambda} function:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}244}]:} \PY{c+c1}{\PYZsh{} input t}
+          \PY{c+c1}{\PYZsh{} output 1.0 \PYZhy{} ca\PYZus{}func(t}
+          \PY{n}{tsol}\PY{p}{,} \PY{o}{=} \PY{n}{fsolve}\PY{p}{(}\PY{k}{lambda} \PY{n}{t}\PY{p}{:} \PY{l+m+mf}{1.0} \PY{o}{\PYZhy{}} \PY{n}{ca\PYZus{}func}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{,} \PY{n}{tguess}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{tsol}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2.4568898598165143
+
+    \end{Verbatim}
+
+    \subsection{\texorpdfstring{Solution to an ODE evaulated at Specific
+\emph{Input}
+Values.}{Solution to an ODE evaulated at Specific Input Values.}}\label{solution-to-an-ode-evaulated-at-specific-input-values.}
+
+ Sometimes it is desirable to get the solution at specific points e.g.
+at \(t = [0, 0.2, 0.4, 0.8]\)
+
+For example we might want to compare experimental measurements at those
+time points.
+
+    To find the solution for specific input values, we simply set the range
+of input variables to the values of interest.
+
+    \subsubsection{Example : Reactor, Part 2}\label{example-reactor-part-2}
+
+ The rate of change of the concentration \(C_A\) of a substance within a
+reactor is:
+
+\[\frac{dC_A}{dt}=-kC_A^2 \]
+
+where \(k = 0.23 \quad \textrm{L/mol/s}\)
+
+Initial condition: \(C_A(t=0) = 2.3 \quad \textrm{mol/L}\)
+
+Compute the contration \(C_A\) at time \(t = [0, 2, 4, 8]\).
+
+    We can use the same function as in \textbf{Example : Reactor, Part 1}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}245}]:} \PY{n}{k} \PY{o}{=} \PY{l+m+mf}{0.23}
+          \PY{n}{Ca0} \PY{o}{=} \PY{l+m+mf}{2.3}
+          
+          \PY{k}{def} \PY{n+nf}{dCadt}\PY{p}{(}\PY{n}{Ca}\PY{p}{,} \PY{n}{t}\PY{p}{)}\PY{p}{:}
+              \PY{k}{return} \PY{o}{\PYZhy{}}\PY{n}{k} \PY{o}{*} \PY{n}{Ca}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+\end{Verbatim}
+
+
+    ...we just apply the function to the new range of time values:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}246}]:} \PY{c+c1}{\PYZsh{} previous problem solution}
+          \PY{n}{tspan} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{14}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{tspan}\PY{p}{,} \PY{n}{odeint}\PY{p}{(}\PY{n}{dCadt}\PY{p}{,} \PY{n}{Ca0}\PY{p}{,} \PY{n}{tspan}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{range time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} specific value problem}
+          \PY{n}{tspan} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{]}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{tspan}\PY{p}{,} \PY{n}{odeint}\PY{p}{(}\PY{n}{dCadt}\PY{p}{,} \PY{n}{Ca0}\PY{p}{,} \PY{n}{tspan}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{range time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time (s)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}C\PYZus{}A\PYZdl{} (mol/L)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}246}]:} Text(0,0.5,'\$C\_A\$ (mol/L)')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_53_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}247}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{odeint}\PY{p}{(}\PY{n}{dCadt}\PY{p}{,} \PY{n}{Ca0}\PY{p}{,} \PY{n}{tspan}\PY{p}{)}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} use index to access column 0}
+          \PY{c+c1}{\PYZsh{} print(odeint(dCadt, Ca0, tspan)[:,0])}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[2.3       ]
+ [1.11758989]
+ [0.73812577]
+ [0.43960241]]
+
+    \end{Verbatim}
+
+    \subsection{Matrix Multiplication
+Rules.}\label{matrix-multiplication-rules.}
+
+ The following section explains the process of matrix multiplication in
+case this is an unfamiliar topic for you.
+
+Read this section to understand the use of matrices in the examples that
+follow.
+
+    If the number of \textbf{columns in A} is the same as number of
+\textbf{rows in B}, we can find the matrix product of \(\mathbf{A}\) and
+\(\mathbf{B}\). \(\mathbf{C} = \mathbf{A} \cdot \mathbf{B}\)
+
+    For example: \(\mathbf{A}\) has 3 rows and \textbf{3 columns}
+\(\mathbf{B}\) has \textbf{3 rows} and 1 column (\(\mathbf{B}\) is a
+vector represented as a matrix)
+
+\begin{equation*}
+\underbrace{
+\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+7 & 8 & 9 \\
+\end{bmatrix}
+}_{\mathbf{A} \text{ 3 rows} \text{ 3 columns}}
+\cdot
+\underbrace{
+\begin{bmatrix}
+10 \\
+20 \\
+30 \\
+\end{bmatrix}
+}_{\mathbf{B} \text{  3 rows} \text{  1 column}}
+\end{equation*}
+
+So we can multiply them...
+
+    In matrix \(\mathbf{C}\), the element in \textbf{row \(i\)},
+\textbf{column \(j\)}
+
+is equal to the dot product of the \(i\)th \textbf{row} of
+\(\mathbf{A}\), \(j\)th \textbf{column} of \(\mathbf{B}\).m
+
+    \begin{equation*}
+\underbrace{
+\begin{bmatrix}
+\color{red}1 & \color{red}2 & \color{red}3 \\
+4 & 5 & 6 \\
+7 & 8 & 9 \\
+\end{bmatrix}
+}_{\mathbf{A} \text{ 3 rows} \text{ 3 columns}}
+\cdot
+\underbrace{
+\begin{bmatrix}
+\color{red}{10} \\
+\color{red}{20} \\
+\color{red}{30} \\
+\end{bmatrix}
+}_{\mathbf{B} \text{  3 rows} \text{  1 column}}
+=\underbrace{
+\begin{bmatrix}
+\color{red}{1 \cdot 10 \quad + \quad 2 \cdot 20 \quad + \quad 3 \cdot 30} \\
+4 \cdot 10 \quad + \quad 5 \cdot 20 \quad + \quad 6 \cdot 30 \\
+7 \cdot 10 \quad + \quad 8 \cdot 20 \quad + \quad 9 \cdot 30 \\
+\end{bmatrix}
+}_{\mathbf{C} \text{  3 rows} \text{  1 column}}
+=\underbrace{
+\begin{bmatrix}
+\color{red}{140} \\
+320 \\
+500 \\
+\end{bmatrix}
+}_{\mathbf{C} \text{  3 rows} \text{  1 column1}}
+\end{equation*}
+
+    \begin{equation*}
+\underbrace{
+\begin{bmatrix}
+1 & 2 & 3 \\
+\color{red}4 & \color{red}5 & \color{red}6 \\
+7 & 8 & 9 \\
+\end{bmatrix}
+}_{\mathbf{A} \text{ 3 rows} \text{ 3 columns}}
+\cdot
+\underbrace{
+\begin{bmatrix}
+\color{red}{10} \\
+\color{red}{20} \\
+\color{red}{30} \\
+\end{bmatrix}
+}_{\mathbf{B} \text{  3 rows} \text{  1 column}}
+=\underbrace{
+\begin{bmatrix}
+1 \cdot 10 \quad + \quad 2 \cdot 20 \quad + \quad 3 \cdot 30 \\
+\color{red}{4 \cdot 10 \quad + \quad 5 \cdot 20 \quad + \quad 6 \cdot 30} \\
+7 \cdot 10 \quad + \quad 8 \cdot 20 \quad + \quad 9 \cdot 30 \\
+\end{bmatrix}
+}_{\mathbf{C} \text{  3 rows} \text{  1 column}}
+=\underbrace{
+\begin{bmatrix}
+140 \\
+\color{red}{320} \\
+500 \\
+\end{bmatrix}
+}_{\mathbf{C} \text{  3 rows} \text{  1 column1}}
+\end{equation*}
+
+    \begin{equation*}
+\underbrace{
+\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+\color{red}7 & \color{red}8 & \color{red}9 \\
+\end{bmatrix}
+}_{\mathbf{A} \text{ 3 rows} \text{ 3 columns}}
+\cdot
+\underbrace{
+\begin{bmatrix}
+\color{red}{10} \\
+\color{red}{20} \\
+\color{red}{30} \\
+\end{bmatrix}
+}_{\mathbf{B} \text{  3 rows} \text{  1 column}}
+=\underbrace{
+\begin{bmatrix}
+1 \cdot 10 \quad + \quad 2 \cdot 20 \quad + \quad 3 \cdot 30 \\
+4 \cdot 10 \quad + \quad 5 \cdot 20 \quad + \quad 6 \cdot 30 \\
+\color{red}{7 \cdot 10 \quad + \quad 8 \cdot 20 \quad + \quad 9 \cdot 30} \\
+\end{bmatrix}
+}_{\mathbf{C} \text{  3 rows} \text{  1 column}}
+=\underbrace{
+\begin{bmatrix}
+140 \\
+320 \\
+\color{red}{500} \\
+\end{bmatrix}
+}_{\mathbf{C} \text{  3 rows} \text{  1 column1}}
+\end{equation*}
+
+    \begin{equation*}
+\underbrace{
+\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+7 & 8 & 9 \\
+\end{bmatrix}
+}_{\mathbf{A} \text{ 3 rows} \text{ 3 columns}}
+\cdot
+\underbrace{
+\begin{bmatrix}
+10 \\
+20 \\
+30 \\
+\end{bmatrix}
+}_{\mathbf{B} \text{  3 rows} \text{  1 column}}
+=\underbrace{
+\begin{bmatrix}
+1 \cdot 10 \quad + \quad 2 \cdot 20 \quad + \quad 3 \cdot 30 \\
+4 \cdot 10 \quad + \quad 5 \cdot 20 \quad + \quad 6 \cdot 30 \\
+7 \cdot 10 \quad + \quad 8 \cdot 20 \quad + \quad 9 \cdot 30 \\
+\end{bmatrix}
+}_{\mathbf{C} \text{  3 rows} \text{  1 column}}
+=\underbrace{
+\begin{bmatrix}
+140 \\
+320 \\
+500 \\
+\end{bmatrix}
+}_{\mathbf{C} \text{  3 rows} \text{  1 column1}}
+\end{equation*}
+
+Matrix \(\mathbf{C}\) therefore has: - the same number of \textbf{rows}
+as \(\mathbf{A}\), - the same number of \textbf{columns} as
+\(\mathbf{B}\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}248}]:} \PY{c+c1}{\PYZsh{} In the equation above, vector B must be represented as a column vector}
+          \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} 
+                        \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{]}\PY{p}{,}
+                        \PY{p}{[}\PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+          
+          
+          \PY{c+c1}{\PYZsh{} In Python, 1D arrays are ALWAYS represented horizontally }
+          \PY{c+c1}{\PYZsh{} This does not define the array as a row vector}
+          \PY{n}{B} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{]}\PY{p}{)}
+          
+          
+          \PY{c+c1}{\PYZsh{} For example, C is represented horizontally }
+          \PY{n}{C} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{A}\PY{p}{,}\PY{n}{B}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{C}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[140 320 500]
+
+    \end{Verbatim}
+
+    As an example, if \(\mathbf{B}\) were a row vector:
+
+\begin{equation*}
+\underbrace{
+\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+7 & 8 & 9 \\
+\end{bmatrix}
+}_{\mathbf{A} \text{ 3 rows} \text{ 3 columns}}
+\cdot
+\underbrace{
+\begin{bmatrix}
+10 & 20 & 30 \\
+\end{bmatrix}
+}_{\mathbf{B} \text{  1 row} \text{  3 columns}}
+\end{equation*}
+
+We \emph{cannot} find the dot product \(\mathbf{B}\cdot\mathbf{A}\). The
+number of columns in \(\mathbf{A}\) \textbf{is not} the same as number
+of rows in \(\mathbf{B}\).
+
+    We can swap the order of \(\mathbf{A}\) and \(\mathbf{B}\). The
+multiplication is now possible. However, the outcome is different.
+
+\begin{equation*}
+\underbrace{
+\begin{bmatrix}
+10 & 20 & 30 \\
+\end{bmatrix}
+}_{\mathbf{B} \text{ 1 row} \text{ 3 columns}}
+\cdot
+\underbrace{
+\begin{bmatrix}
+\color{red}1 & \color{blue}2 & \color{green}3 \\
+\color{red}4 & \color{blue}5 & \color{green}6 \\
+\color{red}7 & \color{blue}8 & \color{green}9 \\
+\end{bmatrix}
+}_{\mathbf{A} \text{  3 rows} \text{  3 columns}}
+=\underbrace{
+\begin{bmatrix}
+\color{red}{10 \cdot 1 + 20 \cdot 4 + 30 \cdot 7} &
+\color{blue}{4 \cdot 10 + 5 \cdot 20 + 6 \cdot 30} &
+\color{green}{7 \cdot 10 + 8 \cdot 20 + 9 \cdot 30} \\
+\end{bmatrix}
+}_{\mathbf{C} \text{  1 row} \text{  3 columns}}
+=\underbrace{
+\begin{bmatrix}
+\color{red}{140} &
+\color{blue}{320} &
+\color{green}{500} \\
+\end{bmatrix}
+}_{\mathbf{C} \text{  3 rows} \text{  1 column1}}
+\end{equation*}
+
+    In Python, normal matrix multiplication rules apply to 2D arrays. This
+holds even if the length of one of the dimensions of the 2D array is
+equal to 1.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}249}]:} \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} 
+                        \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{]}\PY{p}{,}
+                        \PY{p}{[}\PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} 2D array}
+          \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} 2D array}
+          \PY{n}{Y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,}
+                        \PY{p}{[}\PY{l+m+mi}{20}\PY{p}{]}\PY{p}{,} 
+                        \PY{p}{[}\PY{l+m+mi}{30}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{A}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}, print(np.dot(A, X))}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{Y}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}, print(np.dot(Y, A))}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[300 360 420]]
+[[140]
+ [320]
+ [500]]
+
+    \end{Verbatim}
+
+    However, the orientation with which 1D arrays are shown (always
+horizontal) does not impact their allowbale placement in an expression.
+
+Python will automatially treat the 1D as a column where appropriate.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}250}]:} \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} 
+                        \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{]}\PY{p}{,}
+                        \PY{p}{[}\PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} 1D array}
+          \PY{n}{Z} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{Z}\PY{p}{,} \PY{n}{A}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{Z}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[300 360 420]
+[140 320 500]
+
+    \end{Verbatim}
+
+    \subsection{Useful Matrix Operations}\label{useful-matrix-operations}
+
+    \paragraph{Inverse of a square matrix}\label{inverse-of-a-square-matrix}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}251}]:} \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} 
+                        \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{]}\PY{p}{)} 
+          
+          \PY{n}{Ainv} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{A}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{A = }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }\PY{l+s+si}{\PYZob{}A\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Inverse of A = }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }\PY{l+s+si}{\PYZob{}Ainv\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+A = 
+ [[1 2]
+ [3 4]]
+Inverse of A = 
+ [[-2.   1. ]
+ [ 1.5 -0.5]]
+
+    \end{Verbatim}
+
+    \paragraph{Determinant of a square
+matrix}\label{determinant-of-a-square-matrix}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}252}]:} \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} 
+                        \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{]}\PY{p}{)} 
+          
+          \PY{n}{Adet} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{det}\PY{p}{(}\PY{n}{A}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{A = }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }\PY{l+s+si}{\PYZob{}A\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Determinant of A = }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{round(Adet, 2)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+A = 
+ [[1 2]
+ [3 4]]
+Determinant of A = -2.0
+
+    \end{Verbatim}
+
+    \paragraph{Transpose of a matrix}\label{transpose-of-a-matrix}
+
+\begin{itemize}
+\tightlist
+\item
+  The columns of the transpose matrix are the rows of the original
+  matrix.
+\item
+  The rows of the transopse matrix are the columns of the original
+  matrix.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}253}]:} \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+          
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}or }
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[0. 0. 0. 0.]
+ [0. 0. 0. 0.]]
+
+[[0. 0.]
+ [0. 0.]
+ [0. 0.]
+ [0. 0.]]
+
+[[0. 0.]
+ [0. 0.]
+ [0. 0.]
+ [0. 0.]]
+
+    \end{Verbatim}
+
+    \paragraph{Generate Identity Matrix}\label{generate-identity-matrix}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}254}]:} \PY{n}{I} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{I}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{I} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{I}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[1. 0.]
+ [0. 1.]]
+
+[[1. 0. 0. 0.]
+ [0. 1. 0. 0.]
+ [0. 0. 1. 0.]
+ [0. 0. 0. 1.]]
+
+    \end{Verbatim}
+
+    \subsection{Systems of Ordinary Differential
+Equations}\label{systems-of-ordinary-differential-equations}
+
+ \texttt{odeint} can also be used to solve \emph{systems} of coupled
+differential equations.
+
+    \subsubsection{Example : Migration
+problem}\label{example-migration-problem}
+
+A well known problem concerns an imaginary country with three cities, A,
+B and C. At the end of each year, a fraction, \(n\) of the people must
+leave each city. Half of the people leaving a city move to one of the
+two options, and half to the other.
+
+    This gives us a system of simultaneous equations
+
+\begin{align*}
+\Delta A = \frac{Bn}{2} + \frac{Cn}{2} - An \\
+\Delta B = \frac{An}{2} + \frac{Cn}{2} - Bn\\
+\Delta C = \frac{An}{2} + \frac{Bn}{2} -Cn \\
+\end{align*}
+
+    Matrices are a convenient way to represent this problem.
+
+    \begin{equation*}
+\begin{bmatrix}
+\Delta A \\
+\Delta B \\
+\Delta C \\
+\end{bmatrix}
+=
+\underbrace{
+\begin{bmatrix}
+-n & \frac{n}{2} & \frac{n}{2} \\
+\frac{n}{2} & -n & \frac{n}{2} \\
+\frac{n}{2} & \frac{n}{2} & -n \\
+\end{bmatrix}
+}_{\mathbf{migration}}
+\cdot
+\underbrace{
+\begin{bmatrix}
+A \\
+B \\
+C \\
+\end{bmatrix}
+}_{\mathbf{population}}
+\end{equation*}
+
+    Let's use variable names \(\mathbf{M}\) and \(\mathbf{P}\).
+
+    \begin{equation*}
+\begin{bmatrix}
+\Delta a \\
+\Delta b \\
+\Delta c \\
+\end{bmatrix}
+=
+\underbrace{
+\begin{bmatrix}
+-0.2 & 0.1 & 0.1 \\
+0.1 & -0.2 & 0.1 \\
+0.1 & 0.1 & -0.2 \\
+\end{bmatrix}
+}_{\mathbf{M}}
+\cdot
+\underbrace{
+\begin{bmatrix}
+A \\
+B \\
+C \\
+\end{bmatrix}
+}_{\mathbf{P}}
+\end{equation*}
+
+    We can use \texttt{odeint} to solve coupled first order ordinary
+differential equations simultaneously (systems of ODEs).
+
+    First create matrix \(\mathbf{M}\):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}255}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{n}{M} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{full}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{l+m+mf}{0.01}\PY{p}{)}
+          \PY{n}{np}\PY{o}{.}\PY{n}{fill\PYZus{}diagonal}\PY{p}{(}\PY{n}{M}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.02}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{M}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[-0.02  0.01  0.01]
+ [ 0.01 -0.02  0.01]
+ [ 0.01  0.01 -0.02]]
+
+    \end{Verbatim}
+
+    The initial value variable is a list.
+
+Note, the values are input as a single data structure.
+
+The elements are the initial populations \(A\), \(B\), and \(C\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}256}]:} \PY{c+c1}{\PYZsh{} Initial population}
+          \PY{n}{P0} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{190.0}\PY{p}{,} \PY{l+m+mf}{500.0}\PY{p}{,} \PY{l+m+mf}{30.0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    Timespan over which to evaluate the change in population:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}257}]:} \PY{c+c1}{\PYZsh{} Time steps to evaluate}
+          \PY{n}{tspan} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{150}\PY{p}{)}
+\end{Verbatim}
+
+
+    The chnage in population is the dot product (or matrix product) of
+matrix \(\mathbf{M}\), and the current populations, matrix
+\(\mathbf{P}\).
+
+Therefore the inputs to the function are: - current population (matrix
+\(\mathbf{P}\)) - timespan to investigate - matrix \(\mathbf{M}\)
+
+The function should output the \textbf{rate of change of each variable}
+as a \textbf{single list}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}258}]:} \PY{k}{def} \PY{n+nf}{dP\PYZus{}dt}\PY{p}{(}\PY{n}{P}\PY{p}{,} \PY{n}{t}\PY{p}{,} \PY{n}{M}\PY{p}{)}\PY{p}{:}
+              
+              \PY{n}{dP\PYZus{}dt} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{P}\PY{p}{,} \PY{n}{M}\PY{p}{)}
+              
+              \PY{k}{return} \PY{p}{[}\PY{n}{dP\PYZus{}dt}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} 
+                      \PY{n}{dP\PYZus{}dt}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                      \PY{n}{dP\PYZus{}dt}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+    We run the \texttt{odeint} solver as before. Inputs: - function -
+initial condition - timespan - additional arguments to function (matrix
+\(\mathbf{M}\))
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}259}]:} \PY{n}{Ps} \PY{o}{=} \PY{n}{odeint}\PY{p}{(}\PY{n}{dP\PYZus{}dt}\PY{p}{,} \PY{n}{P0}\PY{p}{,} \PY{n}{tspan}\PY{p}{,} \PY{n}{args}\PY{o}{=}\PY{p}{(}\PY{n}{M}\PY{p}{,}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    As before, the output is retured as a vector, each time, there is one
+vector for each population.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}260}]:} \PY{c+c1}{\PYZsh{} first 5 rows of Ps}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{Ps}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{,} \PY{p}{:}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[190.         500.          30.        ]
+ [191.47772343 492.31583817  36.2064384 ]
+ [192.91177343 484.85877818  42.22944839]
+ [194.30344084 477.62210765  48.07445151]
+ [195.65397826 470.59931305  53.74670869]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}261}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{tspan}\PY{p}{,} \PY{n}{Ps}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{A}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{tspan}\PY{p}{,} \PY{n}{Ps}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{B}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{tspan}\PY{p}{,} \PY{n}{Ps}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Population}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_99_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    For example we can use \texttt{odeint} to solve the population problem
+from earlier.
+
+The function dP\_dt is exactly the same as the function
+\texttt{change\_pop} that we used earlier. The only difference is that
+\texttt{dP\_dt} returns the individual rates of chnage of each
+population as a list.
+
+    We can check the solution by iteratively solving the equations over each
+time step using a \texttt{for} loop:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}262}]:} \PY{k}{def} \PY{n+nf}{dP\PYZus{}dt\PYZus{}manual}\PY{p}{(}\PY{n}{P}\PY{p}{,} \PY{n}{t}\PY{p}{,} \PY{n}{M}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Returns a vector of the population change over time t}\PY{l+s+s2}{\PYZdq{}}
+              
+              \PY{c+c1}{\PYZsh{} make 2D array to store population per timestep}
+              \PY{n}{dPdt} \PY{o}{=} \PY{n}{P}
+              \PY{k}{for} \PY{n}{time} \PY{o+ow}{in} \PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+                  
+                  \PY{c+c1}{\PYZsh{} Increment population }
+                  \PY{n}{P} \PY{o}{=} \PY{n}{P} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{P}\PY{p}{,} \PY{n}{M}\PY{p}{)}
+                  
+                  \PY{c+c1}{\PYZsh{} Store population}
+                  \PY{n}{dPdt} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{vstack}\PY{p}{(}\PY{p}{(}\PY{n}{dPdt}\PY{p}{,} \PY{n}{P}\PY{p}{)}\PY{p}{)}
+                  
+              \PY{k}{return} \PY{n}{dPdt}
+                  
+          \PY{n}{dPdt} \PY{o}{=} \PY{n}{dP\PYZus{}dt\PYZus{}manual}\PY{p}{(}\PY{n}{P0}\PY{p}{,} \PY{n}{tspan}\PY{p}{,} \PY{n}{M}\PY{p}{)} 
+\end{Verbatim}
+
+
+    Now we can plot the manually computed solution on top of the numerical
+approximation using \texttt{odeint}:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}263}]:} \PY{c+c1}{\PYZsh{} Numerical Appproximation}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{tspan}\PY{p}{,} \PY{n}{Ps}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{A}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{tspan}\PY{p}{,} \PY{n}{Ps}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{B}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{tspan}\PY{p}{,} \PY{n}{Ps}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{tspan}\PY{p}{,} \PY{n}{dPdt}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{A}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{tspan}\PY{p}{,} \PY{n}{dPdt}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{B}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{tspan}\PY{p}{,} \PY{n}{dPdt}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Population}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_104_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Interactive Plots}\label{interactive-plots}
+
+ Interactive plots allow us to dynamically observe the influence that
+changing different parameters has on an output.
+
+To produce animated plots, we first need to install a program, FFmpeg,
+for handling multimedia data.
+
+Follow the instructions below to install ffmpeg:
+
+    \subsubsection{Installing FFmpeg}\label{installing-ffmpeg}
+
+    Installing FFmpeg on mac
+
+Open a terminal. Copy and paste the following command into the terminal
+to install homebrew (a linux-like package manager):
+\textgreater{}\texttt{ruby\ -e\ "\$(curl\ -fsSL\ https://raw.githubusercontent.com/Homebrew/install/master/install)"}
+
+Press 'Enter' to install and enter your password when prompted.
+
+Copy and paste the following command into the terminal to install
+FFmpeg: \textgreater{}\texttt{brew\ install\ ffmpeg}
+
+To check ffmpeg has installed copy and paste the following command into
+the terminal: \textgreater{}\texttt{ffmpeg\ -version}
+
+If FFmpeg has installed a few lines of code will appear, starting with
+the version number which will be something like:
+\textgreater{}\texttt{ffmpeg\ version\ 3.4\ Copyright\ (c)\ 2000-2017}
+
+    Installing FFmpeg on linux
+
+Open a terminal. Copy and paste the following commands into the terminal
+(one-by-one, pressing enter after one) to install ffmpeg:
+\textgreater{}\texttt{sudo\ add-apt-repository\ ppa:kirillshkrogalev/ffmpeg-next\ sudo\ apt-get\ update\ sudo\ apt-get\ install\ ffmpeg}
+
+To check ffmpeg has installed copy and paste the following command into
+the terminal: \textgreater{}\texttt{ffmpeg\ -version}
+
+If FFmpeg has installed a few lines of code will appear, starting with
+the version number which will be something like:
+\textgreater{}\texttt{ffmpeg\ version\ 3.4\ Copyright\ (c)\ 2000-2017}
+
+    Installing FFmpeg on windows
+
+Open a terminal.
+
+To find out what version of windows you have, copy and paste the
+following command into the terminal to see if your computer has a 32 or
+64 bit CPU: \textgreater{}\texttt{wmic\ os\ get\ osarchitecture}
+
+Go to ffmpeg.zeranoe.com/builds/ - Click the appropraite
+\textbf{Architecture} for your computer. - Click Static \textbf{Linking}
+- Leave \textbf{Version} as the default. - Click \textbf{Download Build}
+
+Go to your computer's Downloads folder. - Right click on the newly
+downloaded .zip folder (it's name will start with \texttt{ffmpeg}). -
+Choose \textbf{Extract All} from the drop-down menu. - If given the
+option to choose a location to extract the files to, choose your Program
+Files folder.Otherwise, a non-.zip folder of the same name as the one
+you downloaded will appear in the Downloads folder. Copy the folder to
+your Program Files folder. - Change rename of the folder you just copied
+into Program Files with the name: \texttt{ffmpeg}
+
+Go back to the terminal and copy and paste the following command into
+the terminal to add ffmpeg to the windows path:
+\textgreater{}\texttt{PATH=C:\textbackslash{}Program\ Files\textbackslash{}ffmpeg\textbackslash{}bin;\%PATH\%}
+
+To check ffmpeg has installed copy and paste the following command into
+the terminal: \textgreater{}\texttt{ffmpeg\ -version}
+
+If FFmpeg has installed a few lines of code will appear, starting with
+the version number which will be something like:
+\textgreater{}\texttt{ffmpeg\ version\ 3.4\ Copyright\ (c)\ 2000-2017}
+
+    As a simple example, we will plot
+
+\[
+f(t) = t^{\alpha} \sin(\omega t)
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  independent variable, \(t\)
+\item
+  dependent variable, \(f(t)\)
+\item
+  input parameters, \(\alpha\) and \(\omega\)
+\end{itemize}
+
+We will create two sliders allowing us to change the value of \(\alpha\)
+and \(\omega\) \emph{interactively}.
+
+We can observe the resulting change in \(f(t)\) dynamically.
+
+    Interactive plots be can created using Python module
+\texttt{ipywidgets}.
+
+Run the following cell to install \texttt{ipywidgets}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}264}]:} \PY{k}{try}\PY{p}{:}
+              \PY{k+kn}{import} \PY{n+nn}{ipywidgets}
+          \PY{k}{except} \PY{n+ne}{ImportError}\PY{p}{:}
+              \PY{k}{try}\PY{p}{:}
+                  \PY{o}{!}\PY{o}{\PYZob{}}sys.executable\PY{o}{\PYZcb{}} \PYZhy{}m pip \PYZhy{}q install ipywidgets
+                  \PY{k+kn}{import} \PY{n+nn}{ipywidgets}
+              \PY{k}{except} \PY{n+ne}{ImportError}\PY{p}{:}
+                  \PY{o}{!}\PY{o}{\PYZob{}}sys.executable\PY{o}{\PYZcb{}} \PYZhy{}m pip \PYZhy{}q \PYZhy{}\PYZhy{}user install ipywidgets
+              \PY{k}{finally}\PY{p}{:}
+                  \PY{o}{!}jupyter nbextension \PY{n+nb}{enable} \PYZhy{}\PYZhy{}py widgetsnbextension
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{You will need to refresh your browser page}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}        
+          \PY{k+kn}{from} \PY{n+nn}{ipywidgets} \PY{k}{import} \PY{n}{interact}
+\end{Verbatim}
+
+
+    \[
+f(t) = t^{\alpha} \sin(\omega t)
+\]
+
+Let's assign arbitrary values \(\alpha = 0\) and \$\omega =1 \$
+
+Start by plotting \(f(t)\) against \(t\) as usual.
+
+\emph{(To generate symbols α or ω type \texttt{\textbackslash{}omega} or
+\texttt{\textbackslash{}alpha}, pressing \texttt{Tab} key at the end.)}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}265}]:} \PY{n}{α}\PY{p}{,} \PY{n}{ω} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}
+          \PY{n}{t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{)}  
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{p}{(}\PY{n}{t}\PY{o}{*}\PY{o}{*}\PY{n}{α}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{ω}\PY{o}{*}\PY{n}{t}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}t\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}f\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}α\PYZdl{} = }\PY{l+s+si}{\PYZob{}α\PYZcb{}}\PY{l+s+s2}{, \PYZdl{}ω\PYZdl{} = }\PY{l+s+si}{\PYZob{}ω\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}265}]:} Text(0.5,1,'\$α\$ = 0, \$ω\$ = 1')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_114_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Next encasulate the code to generate the plot within a function.
+
+The parameters we want to vary are given as function arguments.
+
+The default values are the values used in the previous example.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}266}]:} \PY{k}{def} \PY{n+nf}{plot}\PY{p}{(}\PY{n}{α}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{ω}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{A plot of the function f(t)= (t**α)*np.sin(ω*t)}\PY{l+s+s2}{\PYZdq{}}
+              \PY{n}{t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{)}  
+              
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{p}{(}\PY{n}{t}\PY{o}{*}\PY{o}{*}\PY{n}{α}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{ω}\PY{o}{*}\PY{n}{t}\PY{p}{)}\PY{p}{)}
+              
+              \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}t\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}f\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{alpha\PYZdl{} = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{, \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{omega\PYZdl{} = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{α}\PY{p}{,} \PY{n}{ω}\PY{p}{)}\PY{p}{)}
+              
+\end{Verbatim}
+
+
+    The \texttt{interact} function, takes the following arguments: - the
+plotting function - a tuple for each variable parameter: - maximum value
+(inclusive) - minimum value (inclusive) - step size between each
+possible value
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}267}]:} \PY{n}{interact}\PY{p}{(}\PY{n}{plot}\PY{p}{,} \PY{n}{α}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mf}{0.25}\PY{p}{)}\PY{p}{,} \PY{n}{ω}\PY{o}{=}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mf}{0.25}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+interactive(children=(FloatSlider(value=0.0, description='α', max=2.0, step=0.25), FloatSlider(value=1.0, desc…
+    \end{verbatim}
+
+    
+    You can now adjust the values by moving the sliders.
+
+The new values appear as the title to the plot.
+
+    \subsection{Animated Plots}\label{animated-plots}
+
+ Plotting can be a very useful way to visualise what is happening in a
+dynamic physical system.
+
+Matplotlib can be used to create animated plots showing the change in a
+system over time.
+
+    We will use the \texttt{animation} and \texttt{rc} subpackages of
+matplotlib.
+
+We will also use \texttt{IPython.display.HTML} to view the animated
+output within jupyter notebook.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}268}]:} \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{animation}\PY{p}{,} \PY{n}{rc}
+          \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{HTML}
+\end{Verbatim}
+
+
+    Let's start with a simple example to learn how to build an animation.
+
+We will create an animation of a physical model.
+
+    The set of steps to build an animated plot is: 1. Create a figure window
+1. Create axes within the window 1. Create object(s) to animate e.g. a
+line or point 1. Define an animation function for the change you want to
+see at each timestep 1. Use the function
+\texttt{animation.FuncAnimation} to create your animation and give it a
+name. 1. Call the animation name to play it. 1. (Save the animation)
+
+    \subsubsection{Example: Animating a
+Line}\label{example-animating-a-line}
+
+\paragraph{An Animated Sine Wave.}\label{an-animated-sine-wave.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}269}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{c+c1}{\PYZsh{} 1. Create a figure window. }
+          \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} 2. Creates axes within the window}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{axes}\PY{p}{(}\PY{n}{xlim}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{n}{ylim}\PY{o}{=}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} 3. Empty object (no data opints) to animate e.g. a line }
+          \PY{c+c1}{\PYZsh{} Name must end with a `,` comma.  }
+          \PY{n}{line}\PY{p}{,} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} 4. Animation function: called sequentially}
+          \PY{c+c1}{\PYZsh{} i = frame number.}
+          \PY{c+c1}{\PYZsh{} Sine wave generated, phase shift proportional to i}
+          \PY{k}{def} \PY{n+nf}{animate}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{:}
+              \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}
+              \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{l+m+mi}{2} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{pi} \PY{o}{*} \PY{p}{(}\PY{n}{x} \PY{o}{\PYZhy{}} \PY{l+m+mf}{0.01} \PY{o}{*} \PY{n}{i}\PY{p}{)}\PY{p}{)}
+              \PY{n}{line}\PY{o}{.}\PY{n}{set\PYZus{}data}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} single return arguments should be given as a tuple with one value}
+              \PY{k}{return} \PY{p}{(}\PY{n}{line}\PY{p}{,}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} 5. Animates the data; }
+          \PY{c+c1}{\PYZsh{} 100 frames}
+          \PY{c+c1}{\PYZsh{} 20ms delay between frames}
+          \PY{n}{anim} \PY{o}{=} \PY{n}{animation}\PY{o}{.}\PY{n}{FuncAnimation}\PY{p}{(}\PY{n}{fig}\PY{p}{,} \PY{n}{animate}\PY{p}{,} \PY{n}{frames}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{interval}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Set the animation display format to html which the non\PYZhy{}Python parts of this notebook are written in.}
+          \PY{n}{rc}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{animation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{html}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{html5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} 6. Play the animation }
+          \PY{n}{anim}
+          
+          \PY{c+c1}{\PYZsh{} 7. Save the animation as a .mp4 file \PYZhy{} if you save the file, it won\PYZsq{}t play}
+          \PY{c+c1}{\PYZsh{} 15 frames per second}
+          \PY{c+c1}{\PYZsh{} 1800 bits of data processed/stored per second}
+          \PY{c+c1}{\PYZsh{}writer = animation.writers[\PYZsq{}ffmpeg\PYZsq{}](fps=15, bitrate=1800)}
+          \PY{c+c1}{\PYZsh{}anim.save(\PYZsq{}img/sin\PYZus{}movie.mp4\PYZsq{}, writer=writer)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}269}]:} <matplotlib.animation.FuncAnimation at 0x181f8fa390>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_126_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    When returning a single argument (e.g. \texttt{line}) it is returned as
+a tuple with one value i.e. \texttt{(line,\ )}.
+
+    \subsubsection{Example : Simulating Physical
+Systems}\label{example-simulating-physical-systems}
+
+\paragraph{Spring-Mass System}\label{spring-mass-system}
+
+ If you are studying an engineering-related subject, you will most
+likely study simple harmonic motion; a type of periodic motion or
+oscillation motion.
+
+For this oscillation to happen, the restoring force is: - directly
+proportional to the displacement - in the direction opposite to the
+displacement.
+
+    A typical example of this is a mass attached to a spring.
+
+    If we assume that: - the spring is ideal (it has no weight, mass, or
+damping losses) - there is no friction
+
+we can use a simple equation to give the position of the mass, \(x\), as
+a function of time, \(t\):
+
+\(x(t) = A cos(\omega t - \phi)\)
+
+where: \(A\): Maximum amplitude (displacment from initial position),
+defined by the initial conditions of the system. \(\phi\) : Phase (the
+initial angle of a sinusoidal function at its origin) \(\omega\) :
+Angular frequency (frequency of oscillation expressed in radians)
+
+    Angular frequency
+
+\(\omega=2\pi f = \sqrt{\frac{k}{m}}\)
+
+where \(k\) : spring constant \(m\) : mass (kg) \(f\) : frequency (Hz)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}270}]:} \PY{c+c1}{\PYZsh{} 1. Create a figure window.}
+          \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} 2. Create axes within the window}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{axes}\PY{p}{(}\PY{n}{xlim}\PY{o}{=}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{n}{ylim}\PY{o}{=}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{3.5}\PY{p}{,}\PY{l+m+mf}{3.5}\PY{p}{)}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} 3. Two objects to animate}
+          \PY{n}{line}\PY{p}{,}   \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n}{ls}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}  \PY{c+c1}{\PYZsh{} a line}
+          \PY{n}{point}\PY{p}{,} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ms}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{)}        \PY{c+c1}{\PYZsh{} a point}
+          
+          \PY{c+c1}{\PYZsh{} Spring data}
+          \PY{n}{k} \PY{o}{=} \PY{l+m+mi}{100}
+          \PY{n}{m} \PY{o}{=} \PY{l+m+mi}{20}
+          \PY{n}{w} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{k}\PY{o}{/}\PY{n}{m}\PY{p}{)}
+          \PY{n}{phi} \PY{o}{=} \PY{l+m+mi}{2}
+          \PY{n}{A} \PY{o}{=} \PY{l+m+mi}{2}
+          
+          \PY{c+c1}{\PYZsh{} Position of mass as function of time}
+          \PY{k}{def} \PY{n+nf}{fun}\PY{p}{(}\PY{n}{time}\PY{p}{)}\PY{p}{:}
+              \PY{k}{return} \PY{n}{A}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{w} \PY{o}{*} \PY{n}{time} \PY{o}{+} \PY{n}{phi}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} 4. Animation function}
+          \PY{c+c1}{\PYZsh{} Timestep = 1/20 = 0.05}
+          \PY{k}{def} \PY{n+nf}{animate}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{:}    
+              \PY{n}{x} \PY{o}{=} \PY{n}{fun}\PY{p}{(}\PY{n}{t}\PY{o}{/}\PY{l+m+mi}{20}\PY{p}{)}     
+              \PY{n}{line}\PY{o}{.}\PY{n}{set\PYZus{}data}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{x}\PY{p}{]}\PY{p}{)}    
+              \PY{n}{point}\PY{o}{.}\PY{n}{set\PYZus{}data}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{x}\PY{p}{)}    
+              \PY{k}{return} \PY{n}{line}\PY{p}{,} \PY{n}{point}
+            
+              
+          \PY{c+c1}{\PYZsh{} 5. Create animation}
+          \PY{c+c1}{\PYZsh{} 500 frames}
+          \PY{c+c1}{\PYZsh{} 50ms (0.05s) delay between frames to match timestep}
+          \PY{n}{anim} \PY{o}{=} \PY{n}{animation}\PY{o}{.}\PY{n}{FuncAnimation}\PY{p}{(}\PY{n}{fig}\PY{p}{,} \PY{n}{animate}\PY{p}{,} \PY{n}{frames}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{,} \PY{n}{interval}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+          
+          \PY{n}{rc}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{animation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{html}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{html5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} 6. Play animation}
+          \PY{n}{anim}
+          
+          \PY{c+c1}{\PYZsh{} 7. Save animation \PYZhy{} if uncommented, animation won\PYZsq{}t move}
+          \PY{c+c1}{\PYZsh{} writer = animation.writers[\PYZsq{}ffmpeg\PYZsq{}](fps=15, bitrate=1800)}
+          \PY{c+c1}{\PYZsh{} anim.save(\PYZsq{}img/spring\PYZus{}movie.mp4\PYZsq{}, writer=writer)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}270}]:} <matplotlib.animation.FuncAnimation at 0x181fac8128>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_132_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Example : Simulating Physical
+Systems}\label{example-simulating-physical-systems}
+
+\paragraph{Trajectory : Plotting the
+Object}\label{trajectory-plotting-the-object}
+
+ A projectile is launched with initial velocity \(v\), at an angle of
+\(\theta\).
+
+If we neglect the force of drag on the projectile, it will travel in an
+arc.
+
+It's position in the horizontal (x) and vertical (y) direction at time
+\(t\) can be found by.
+
+\(x= vt\cos(\theta)\) \(y= vt\sin(\theta) - \frac{1}{2}gt^2\)
+
+where gravity, \(g=9.81\)ms\(^{-2}\)
+
+Initial conditions: - \(\theta = \pi/2\) - velocity, \(v=10\)ms\(^{-1}\)
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Create a figure window
+\item
+  Create axes within the figure window.
+\item
+  Create a point to animate
+\item
+  Create variables for \(g\), \(v\), and \(\theta\)
+\item
+  Write a function, \texttt{fun} to find x and y position as a function
+  of time, t (function argument = t)
+\item
+  To animate the motion of the particle create a function,
+  \texttt{animate}. Within animate call the function, \texttt{func}. Use
+  a timestep of i/10.
+\item
+  Use the function \texttt{animation.FuncAnimation} to create the
+  animation.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}271}]:} \PY{c+c1}{\PYZsh{} Creates a figure window.}
+          \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Creates axes within the window}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{axes}\PY{p}{(}\PY{n}{xlim}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} \PY{n}{ylim}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Object to animate}
+          \PY{n}{point}\PY{p}{,} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ms}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{)}  \PY{c+c1}{\PYZsh{} for points}
+          
+          \PY{n}{g} \PY{o}{=} \PY{l+m+mf}{9.81}
+          \PY{n}{v} \PY{o}{=} \PY{l+m+mi}{10}
+          \PY{n}{theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{/}\PY{l+m+mi}{4}
+          
+          \PY{c+c1}{\PYZsh{} Position of mass as function of time}
+          \PY{k}{def} \PY{n+nf}{fun}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{:}
+              \PY{n}{x} \PY{o}{=} \PY{n}{v} \PY{o}{*} \PY{n}{t} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{theta}\PY{p}{)}
+              \PY{n}{y} \PY{o}{=} \PY{n}{v} \PY{o}{*} \PY{n}{t} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{theta}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{l+m+mf}{0.5} \PY{o}{*} \PY{n}{g} \PY{o}{*} \PY{n}{t}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+              \PY{k}{return} \PY{n}{x}\PY{p}{,} \PY{n}{y}
+          
+          \PY{k}{def} \PY{n+nf}{animate}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{:}   
+              \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{fun}\PY{p}{(}\PY{n}{i}\PY{o}{/}\PY{l+m+mi}{10}\PY{p}{)}   
+              \PY{n}{point}\PY{o}{.}\PY{n}{set\PYZus{}data}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}    
+              \PY{k}{return}  \PY{p}{(}\PY{n}{point}\PY{p}{,}\PY{p}{)}
+              
+          \PY{c+c1}{\PYZsh{} Animates the data}
+          \PY{c+c1}{\PYZsh{} 50 frames}
+          \PY{c+c1}{\PYZsh{} 50ms delay between frames : animation plays at double speed of time\PYZhy{}varying system}
+          \PY{n}{anim} \PY{o}{=} \PY{n}{animation}\PY{o}{.}\PY{n}{FuncAnimation}\PY{p}{(}\PY{n}{fig}\PY{p}{,} \PY{n}{animate}\PY{p}{,} \PY{n}{frames}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{,} \PY{n}{interval}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{blit}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{n}{anim}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}271}]:} <matplotlib.animation.FuncAnimation at 0x181fac8080>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_135_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Example : Simulating Physical
+Systems}\label{example-simulating-physical-systems}
+
+\paragraph{Trajectory : Plotting the
+Path}\label{trajectory-plotting-the-path}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}272}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{animation} \PY{k}{as} \PY{n+nn}{animation}
+          \PY{k+kn}{import} \PY{n+nn}{time}
+          
+          \PY{n}{g} \PY{o}{=} \PY{l+m+mf}{9.81}
+          \PY{n}{v} \PY{o}{=} \PY{l+m+mi}{10}
+          \PY{n}{theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{/}\PY{l+m+mi}{4}
+          
+          \PY{n}{t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{500}\PY{p}{)}
+          \PY{n}{x} \PY{o}{=} \PY{n}{v} \PY{o}{*} \PY{n}{t} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{theta}\PY{p}{)}
+          \PY{n}{y} \PY{o}{=} \PY{n}{v} \PY{o}{*} \PY{n}{t} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{theta}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{l+m+mf}{0.5} \PY{o}{*} \PY{n}{g} \PY{o}{*} \PY{n}{t}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+          
+          \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{axes}\PY{p}{(}\PY{n}{xlim}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} \PY{n}{ylim}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{animate}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{:}
+          
+              \PY{n}{i} \PY{o}{/}\PY{o}{=} \PY{l+m+mi}{10}
+              \PY{k}{if} \PY{n}{i} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                  \PY{n}{s} \PY{o}{=} \PY{n}{i}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{s} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{i}\PY{p}{)}
+          
+              \PY{n}{x} \PY{o}{=} \PY{n}{v} \PY{o}{*} \PY{n}{s} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{theta}\PY{p}{)}
+              \PY{n}{y} \PY{o}{=} \PY{n}{v} \PY{o}{*} \PY{n}{s} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{theta}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{l+m+mf}{0.5} \PY{o}{*} \PY{n}{g} \PY{o}{*} \PY{n}{s}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              
+          \PY{n}{ani} \PY{o}{=} \PY{n}{animation}\PY{o}{.}\PY{n}{FuncAnimation}\PY{p}{(}\PY{n}{fig}\PY{p}{,} \PY{n}{animate}\PY{p}{,} \PY{n}{frames}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{,} \PY{n}{interval}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+          \PY{n}{ani}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}272}]:} <matplotlib.animation.FuncAnimation at 0x181f596a20>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_137_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Example : Simulating Physical
+Systems}\label{example-simulating-physical-systems}
+
+\paragraph{Trajectory : Plotting the Path \&
+Object}\label{trajectory-plotting-the-path-object}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}273}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{animation} \PY{k}{as} \PY{n+nn}{animation}
+          \PY{k+kn}{import} \PY{n+nn}{time}
+          
+          \PY{n}{g} \PY{o}{=} \PY{l+m+mf}{9.81}
+          \PY{n}{v} \PY{o}{=} \PY{l+m+mi}{10}
+          \PY{n}{theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{/}\PY{l+m+mi}{4}
+          
+          \PY{n}{t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{500}\PY{p}{)}
+          \PY{n}{x} \PY{o}{=} \PY{n}{v} \PY{o}{*} \PY{n}{t} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{theta}\PY{p}{)}
+          \PY{n}{y} \PY{o}{=} \PY{n}{v} \PY{o}{*} \PY{n}{t} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{theta}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{l+m+mf}{0.5} \PY{o}{*} \PY{n}{g} \PY{o}{*} \PY{n}{t}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+          
+          \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{axes}\PY{p}{(}\PY{n}{xlim}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} \PY{n}{ylim}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} \PYZsh{} Object to animate}
+          \PY{n}{point}\PY{p}{,} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ms}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{)}  \PY{c+c1}{\PYZsh{} for points}
+          
+          \PY{k}{def} \PY{n+nf}{animate}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{:}
+          
+              \PY{n}{i} \PY{o}{/}\PY{o}{=} \PY{l+m+mi}{10}
+              \PY{k}{if} \PY{n}{i} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                  \PY{n}{s} \PY{o}{=} \PY{n}{i}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{s} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{i}\PY{p}{)}
+              
+          
+              \PY{n}{x} \PY{o}{=} \PY{n}{v} \PY{o}{*} \PY{n}{s} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{theta}\PY{p}{)}
+              \PY{n}{y} \PY{o}{=} \PY{n}{v} \PY{o}{*} \PY{n}{s} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{theta}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{l+m+mf}{0.5} \PY{o}{*} \PY{n}{g} \PY{o}{*} \PY{n}{s}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              
+              \PY{k}{if} \PY{n}{i} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                  \PY{n}{point}\PY{o}{.}\PY{n}{set\PYZus{}data}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}   
+              \PY{k}{else}\PY{p}{:}  
+                  \PY{n}{point}\PY{o}{.}\PY{n}{set\PYZus{}data}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}    
+              \PY{k}{return}  \PY{p}{(}\PY{n}{point}\PY{p}{,}\PY{p}{)}
+              
+          \PY{n}{ani} \PY{o}{=} \PY{n}{animation}\PY{o}{.}\PY{n}{FuncAnimation}\PY{p}{(}\PY{n}{fig}\PY{p}{,} \PY{n}{animate}\PY{p}{,} \PY{n}{frames}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{,} \PY{n}{interval}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+          \PY{n}{ani}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}273}]:} <matplotlib.animation.FuncAnimation at 0x181eb248d0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_139_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Summary}\label{summary}
+
+ - \texttt{scipy.integrate.odeint} can be used to find a numerical
+approximation for the change in a parameter over a given range of input
+values (expressed as an ordinary differential equation, ode). - This
+allows us to easily deal with dicontinuous functions. - An can be solved
+for a specific \emph{solution} value by interpolating. - We can find the
+value of the function at a specific value by selecting the points at
+which the function is approximated. - We can create interactive plots
+with \texttt{ipywidgets}. - \texttt{matplotlib.animation} and
+\texttt{matplotlib.rc} can be used to produce animated plots. -
+\texttt{IPython.display.HTML} allows us to view and play these
+animations within Jupyter notebook. - Installing the program
+\texttt{ffmpeg} allows us to save an animation in a format we can view
+outside of the Python environment.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
